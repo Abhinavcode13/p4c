@@ -41,7 +41,7 @@ add_p4tools_library(p4tools-common ${P4C_TOOLS_COMMON_SOURCES})
 target_link_libraries(
   p4tools-common
   PUBLIC ${P4TOOLS_Z3_LIB}
-  PRIVATE frontend
+  PRIVATE ${P4C_LIBRARIES}
 )
 
 target_include_directories(
