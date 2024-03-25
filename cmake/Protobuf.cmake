@@ -1,4 +1,6 @@
 macro(p4c_obtain_protobuf)
+  set(P4C_PROTOBUF_VERSION "25.3")
+  set(P4C_PROTOC_VERSION "4.25")
   option(
     P4C_USE_PREINSTALLED_PROTOBUF
     "Look for a preinstalled version of Protobuf in the system instead of installing a prebuilt binary using FetchContent."
@@ -11,7 +13,7 @@ macro(p4c_obtain_protobuf)
       set(SAVED_CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
       set(CMAKE_FIND_LIBRARY_SUFFIXES .a)
     endif()
-    find_package(Protobuf CONFIG 25.3 REQUIRED)
+    find_package(Protobuf ${P4C_PROTOC_VERSION} REQUIRED)
     # Protobuf sets the protoc binary to a generator expression, which are problematic. They are
     # problematic because they are only evaluated at build time. However, we may have scripts that
     # depend on the actual build time during the configure phase. Hard code a custom binary instead.
@@ -21,7 +23,6 @@ macro(p4c_obtain_protobuf)
       set(CMAKE_FIND_LIBRARY_SUFFIXES ${SAVED_CMAKE_FIND_LIBRARY_SUFFIXES})
     endif()
   else()
-    set(P4C_PROTOBUF_VERSION "25.3")
     message("Fetching Protobuf version ${P4C_PROTOBUF_VERSION} for P4C...")
 
     # Unity builds do not work for Protobuf...
